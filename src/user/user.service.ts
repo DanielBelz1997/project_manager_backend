@@ -34,6 +34,7 @@ export class UserService {
   async findOneUser(
     userWhereUniqueInput: Prisma.UserWhereUniqueInput,
   ): Promise<User | null> {
+    console.log('dsa', userWhereUniqueInput);
     return this.prisma.user.findUnique({
       where: userWhereUniqueInput,
     });

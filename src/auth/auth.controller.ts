@@ -19,7 +19,7 @@ export class AuthController {
   @Post('login')
   // change this to a real dto
   signIn(@Body() signInDto: Record<string, any>) {
-    return this.authService.signIn(signInDto.username, signInDto.password);
+    return this.authService.signIn(signInDto.email, signInDto.password);
   }
 
   @Get('profile')
