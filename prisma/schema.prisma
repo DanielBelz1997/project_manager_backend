@@ -14,7 +14,7 @@ datasource db {
 }
 
 model User {
-  id    Int     @default(autoincrement()) @id
+  id    Int     @default(autoincrement()) @id 
   first_name  String
   last_name String
   username String @unique
@@ -24,17 +24,35 @@ model User {
   avatar_url String 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  users_groups_permissions UsersOnGroupsOnPermissions[]
+  request_users_groups RequestOnUsersOnGroups[]
 }
 
 model Group {
   id Int @default(autoincrement()) @id
   group_name String
   form Json
+  users_groups_permissions UsersOnGroupsOnPermissions[]
+  components GroupsOnComponents[]
+  request_users_groups RequestOnUsersOnGroups[]
 }
 
 model Permission {
   id Int @default(autoincrement()) @id
   role Int @default(1)
+  users_groups_permissions UsersOnGroupsOnPermissions[]
+}
+model UsersOnGroupsOnPermissions {
+  user User @relation(fields: [user_id], references: [id])
+  user_id Int
+  group Group @relation(fields: [group_id], references: [id])
+  group_id Int
+  permission Permission @relation(fields: [permission_id], references: [id])
+  permission_id Int
+  createdAt DateTime @default(now())
+  addedBy String
+
+  @@id([user_id, group_id, permission_id])
 }
 
 model Contact {
@@ -43,4 +61,37 @@ model Contact {
   email String
   subject String
   message String
+}
+
+model Component {
+  id Int @default(autoincrement()) @id
+  component String
+  group GroupsOnComponents[] 
+}
+
+model GroupsOnComponents {
+  group Group @relation(fields: [group_id], references: [id])
+  group_id Int
+  component Component @relation(fields: [component_id], references: [id])
+  component_id Int
+  createdAt DateTime @default(now())
+
+  @@id([group_id, component_id])
+}
+
+model Request {
+  id Int @default(autoincrement()) @id
+  form_values Json
+  request_users_groups RequestOnUsersOnGroups[]
+}
+
+model RequestOnUsersOnGroups {
+  request Request @relation(fields: [request_id], references: [id])
+  request_id Int
+  user User @relation(fields: [user_id], references: [id])
+  user_id Int
+  group Group @relation(fields: [group_id], references: [id])
+  group_id Int
+
+  @@id([request_id, user_id, group_id])
 }
