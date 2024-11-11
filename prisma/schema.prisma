@@ -39,7 +39,7 @@ model Group {
 
 model Permission {
   id Int @default(autoincrement()) @id
-  role Int @default(1)
+  role String
   users_groups_permissions UsersOnGroupsOnPermissions[]
 }
 model UsersOnGroupsOnPermissions {
