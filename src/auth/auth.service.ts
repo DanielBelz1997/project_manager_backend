@@ -12,7 +12,7 @@ export class AuthService {
   async signIn(
     email: string,
     password: string,
-  ): Promise<{ access_token: string; username: string }> {
+  ): Promise<{ access_token: string; username: string; role: number }> {
     const user = await this.userService.findOneUser({ email: email });
     if (user?.password !== password) {
       throw new UnauthorizedException();
@@ -23,6 +23,7 @@ export class AuthService {
     return {
       access_token: await this.jwtService.signAsync(payload),
       username: user.username,
+      role: user.users_groups_permissions[0]?.permission_id,
     };
   }
 }

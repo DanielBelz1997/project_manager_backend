@@ -31,11 +31,16 @@ export class UserService {
     });
   }
 
-  async findOneUser(
-    userWhereUniqueInput: Prisma.UserWhereUniqueInput,
-  ): Promise<User | null> {
+  async findOneUser(userWhereUniqueInput: Prisma.UserWhereUniqueInput) {
     return this.prisma.user.findUnique({
       where: userWhereUniqueInput,
+      include: {
+        users_groups_permissions: {
+          select: {
+            permission_id: true,
+          },
+        },
+      },
     });
   }
 
