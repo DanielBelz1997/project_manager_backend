@@ -75,6 +75,7 @@ model GroupsOnComponents {
   component Component @relation(fields: [component_id], references: [id])
   component_id Int
   createdAt DateTime @default(now())
+  component_style Json @default("[]")
 
   @@id([group_id, component_id])
 }
