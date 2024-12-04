@@ -76,6 +76,10 @@ model GroupsOnComponents {
   component_id Int
   createdAt DateTime @default(now())
   component_style Json @default("[]")
+  width Int @default(0)
+  height Int @default(0)
+  x Int @default(0)
+  y Int @default(0)
 
   @@id([group_id, component_id])
 }
@@ -96,3 +100,5 @@ model RequestOnUsersOnGroups {
 
   @@id([request_id, user_id, group_id])
 }
+
+//$ npx prisma migrate dev --name init
