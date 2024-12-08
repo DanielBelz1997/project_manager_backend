@@ -5,6 +5,7 @@ import { UpdateContactDto } from './dto/update-contact.dto';
 @Injectable()
 export class ContactService {
   create(createContactDto: CreateContactDto) {
+    console.log(createContactDto);
     return 'This action adds a new contact';
   }
 
