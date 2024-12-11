@@ -1,12 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { CreateContactDto } from './dto/create-contact.dto';
-import { UpdateContactDto } from './dto/update-contact.dto';
+import { DatabaseService } from 'src/database/database.service';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class ContactService {
-  create(createContactDto: CreateContactDto) {
-    console.log(createContactDto);
-    return 'This action adds a new contact';
+  constructor(private readonly databaseService: DatabaseService) {}
+
+  async create(createContactDto: Prisma.ContactCreateInput) {
+    return this.databaseService.contact.create({
+      data: createContactDto,
+    });
   }
 
   findAll() {
@@ -17,7 +20,7 @@ export class ContactService {
     return `This action returns a #${id} contact`;
   }
 
-  update(id: number, updateContactDto: UpdateContactDto) {
+  update(id: number, updateContactDto) {
     return `This action updates a #${id} contact`;
   }
 

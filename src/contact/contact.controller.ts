@@ -6,11 +6,11 @@ import {
   Patch,
   Param,
   Delete,
+  ValidationPipe,
 } from '@nestjs/common';
 import { ContactService } from './contact.service';
-import { CreateContactDto } from './dto/create-contact.dto';
-import { UpdateContactDto } from './dto/update-contact.dto';
 import { Public } from 'src/auth/decorators/public.decorator';
+import { Prisma } from '@prisma/client';
 
 @Controller('contact')
 export class ContactController {
@@ -18,7 +18,7 @@ export class ContactController {
 
   @Public()
   @Post()
-  create(@Body() createContactDto: CreateContactDto) {
+  create(@Body(ValidationPipe) createContactDto: Prisma.ContactCreateInput) {
     return this.contactService.create(createContactDto);
   }
 
@@ -33,7 +33,7 @@ export class ContactController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateContactDto: UpdateContactDto) {
+  update(@Param('id') id: string, @Body() updateContactDto) {
     return this.contactService.update(+id, updateContactDto);
   }
 

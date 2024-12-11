@@ -8,9 +8,12 @@ import { GroupModule } from './group/group.module';
 import { PermissionModule } from './permission/permission.module';
 import { ContactModule } from './contact/contact.module';
 import { RequestModule } from './request/request.module';
+import { DatabaseModule } from './database/database.module';
+import { LoggerModule } from './logger/logger.module';
 
 @Module({
   imports: [
+    DatabaseModule,
     UserModule,
     AuthModule,
     ComponentModule,
@@ -18,6 +21,7 @@ import { RequestModule } from './request/request.module';
     PermissionModule,
     ContactModule,
     RequestModule,
+    LoggerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
