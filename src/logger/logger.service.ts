@@ -4,7 +4,7 @@ import { promises as fsPromises } from 'fs';
 import * as path from 'path';
 
 @Injectable()
-export class MyLoggerService extends ConsoleLogger {
+export class LoggerService extends ConsoleLogger {
   async logToFile(entry) {
     const formattedEntry = `${Intl.DateTimeFormat('en-US', {
       dateStyle: 'short',

@@ -1,5 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { LoggerService } from 'src/logger/logger.service';
 import { UserService } from 'src/user/user.service';
 
 @Injectable()
@@ -8,6 +9,7 @@ export class AuthService {
     private userService: UserService,
     private jwtService: JwtService,
   ) {}
+  private readonly logger = new LoggerService(AuthService.name);
 
   async signIn(
     email: string,
@@ -19,6 +21,8 @@ export class AuthService {
     }
 
     const payload = { sub: user.id, username: user.username };
+
+    this.logger.log(`the user with email ${email} logged in successfully`);
 
     return {
       access_token: await this.jwtService.signAsync(payload),
