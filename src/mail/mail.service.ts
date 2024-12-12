@@ -29,9 +29,9 @@ export class MailingService {
     const url = `${process.env.CLIENT_URL}?token=${token}`;
 
     await this.transporter.sendMail({
-      to: user.email,
-      subject: 'Welcome user! Confirm your Email',
-      text: `hello, click here: ${url}`,
+      to: user.email || 'belzdaniel66@gmail.com',
+      subject: 'קיבלנו את ההודעה שלכם!',
+      text: `הצוות שלנו ייצור איתכם קשר במהירות המירבית. בינתיים, תוכלו להכנס לאתר שלנו: ${url}`,
     });
   }
 
