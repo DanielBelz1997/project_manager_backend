@@ -59,6 +59,7 @@ export class AuthService {
   ): Promise<{ access_token: string; username: string; role: number }> {
     const user = await this.userService.findOneUser({ email: email });
     if (!user) {
+      this.logger.warn(`Failed login with user for email ${email}`);
       throw new UnauthorizedException('Invalid name or Password');
     }
 
@@ -68,6 +69,7 @@ export class AuthService {
     );
 
     if (!isPasswordValid) {
+      this.logger.warn(`Failed login with password attempt for email ${email}`);
       throw new UnauthorizedException('Invalid name or password');
     }
 
