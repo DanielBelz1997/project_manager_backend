@@ -30,7 +30,9 @@ model User {
 
 model Group {
   id Int @default(autoincrement()) @id
-  group_name String
+  name String @default("")
+  description String @default("")
+  image_url String @default("")
   form Json
   users_groups_permissions UsersOnGroupsOnPermissions[]
   components GroupsOnComponents[]

@@ -1,7 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { GroupService } from './group.service';
 import { CreateGroupDto } from './dto/create-group.dto';
 import { UpdateGroupDto } from './dto/update-group.dto';
+import { Public } from 'src/auth/decorators/public.decorator';
 
 @Controller('group')
 export class GroupController {
@@ -12,6 +21,7 @@ export class GroupController {
     return this.groupService.create(createGroupDto);
   }
 
+  @Public()
   @Get()
   findAll() {
     return this.groupService.findAll();
